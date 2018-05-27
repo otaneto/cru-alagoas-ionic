@@ -1,23 +1,33 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+// Pages
+import { EventsPage } from '../pages/events/events';
+import { PostsPage } from '../pages/posts/posts';
+import { MeetingsPage } from '../pages/meetings/meetings';
+import { UserPage } from '../pages/user/user';
 import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login/login';
+import { SignUpPage } from '../pages/sign-up/sign-up';
 
+import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+// Services
+import { AuthenticationService } from '../services/authentication.service';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    EventsPage,
+    PostsPage,
+    MeetingsPage,
+    UserPage,
+    TabsPage,
+    LoginPage,
+    SignUpPage,
   ],
   imports: [
     BrowserModule,
@@ -26,15 +36,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
+    EventsPage,
+    PostsPage,
+    MeetingsPage,
+    UserPage,
+    TabsPage,
+    LoginPage,
+    SignUpPage,
+  ],  
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthenticationService,
   ]
 })
 export class AppModule {}
