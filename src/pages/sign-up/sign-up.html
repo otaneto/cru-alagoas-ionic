@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>SignUp</ion-title>
+    <ion-title>Cadastrar</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,17 +16,18 @@
 <ion-content padding>
   <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
     <ion-item>
-      <ion-label floating [color]="loginForm.get('email').touched && !loginForm.get('email').valid && 'danger'">E-mail</ion-label>
+      <ion-label floating [color]="signUpForm.get('email').touched && !signUpForm.get('email').valid && 'danger'">E-mail</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating [color]="loginForm.get('password').touched && !loginForm.get('password').valid && 'danger'">Senha</ion-label>
+      <ion-label floating [color]="signUpForm.get('password').touched && !signUpForm.get('password').valid && 'danger'">Senha</ion-label>
       <ion-input type="password" minLength="6" formControlName="password"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating [color]="loginForm.get('confirm_password').touched && !confirmPasswordIsEqualPassword() && 'danger'">Confirmar senha</ion-label>
-      <ion-input type="confirm_password" minLength="6" formControlName="confirm_password"></ion-input>
+      <ion-label floating [color]="signUpForm.get('confirm_password').touched && !confirmPasswordIsEqualPassword() && 'danger'">Confirmar senha</ion-label>
+      <ion-input type="password" minLength="6" formControlName="confirm_password"></ion-input>
     </ion-item>
-    <button ion-button full type="submit" [disabled]="!loginForm.valid || !confirmPasswordIsEqualPassword()">Entrar</button>
+    <button ion-button full type="submit" [disabled]="!signUpForm.valid || !confirmPasswordIsEqualPassword()">Cadastrar</button>
   </form>
+  <a class="primary" (click)="goToLoginPage()">Já possuo cadastro!</a>
 </ion-content>
