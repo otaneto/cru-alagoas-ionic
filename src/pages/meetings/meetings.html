@@ -2,7 +2,21 @@
   <ion-navbar>
     <ion-title>Reuniões</ion-title>
   </ion-navbar>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar evento"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
+	<ion-card *ngFor="let item of itemsFound" (click)="showMeeting(item.name)">
+    <img src="http://via.placeholder.com/350x200"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{ item.name }}
+      </ion-card-title>
+      <p>
+        The most popular industrial group ever, and largely
+        responsible for bringing the music to a mass audience.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

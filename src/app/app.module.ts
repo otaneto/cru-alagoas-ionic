@@ -10,6 +10,7 @@ import { UserPage } from '../pages/user/user';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { ShowMeetingPage } from '../pages/show-meeting/show-meeting';
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -28,6 +29,7 @@ import { AuthenticationService } from '../services/authentication.service';
     TabsPage,
     LoginPage,
     SignUpPage,
+    ShowMeetingPage,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import { AuthenticationService } from '../services/authentication.service';
     TabsPage,
     LoginPage,
     SignUpPage,
+    ShowMeetingPage,
   ],  
   providers: [
     StatusBar,
