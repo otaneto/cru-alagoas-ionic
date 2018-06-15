@@ -4,8 +4,21 @@
       Eventos
     </ion-title>
   </ion-navbar>
+  <ion-searchbar (ionInput)="getEvents($event)" placeholder="Buscar evento"></ion-searchbar>
+
 </ion-header>
 
-<ion-content padding>
-  <p>Conteúdo de eventos</p>
+<ion-content>
+  <ion-card *ngFor="let event of eventsFound" (click)="showEvent(event)">
+    <img src="http://via.placeholder.com/350x160" />
+    <ion-card-content>
+      <ion-card-title>
+        {{ event.name }}
+      </ion-card-title>
+      <p class="event-subtitle">
+        16 a 18 de setembro de 2018
+        <br> Igreja Batista do Farol - Maceió
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

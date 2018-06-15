@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ShowMeetingPage } from '../pages/show-meeting/show-meeting';
 import { ShowPostPage } from '../pages/show-post/show-post';
+import { ShowEventPage } from '../pages/show-event/show-event';
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -31,7 +32,8 @@ import { AuthenticationService } from '../services/authentication.service';
     LoginPage,
     SignUpPage,
     ShowMeetingPage,
-    ShowPostPage
+    ShowPostPage,
+    ShowEventPage
   ],
   imports: [BrowserModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
@@ -45,7 +47,8 @@ import { AuthenticationService } from '../services/authentication.service';
     LoginPage,
     SignUpPage,
     ShowMeetingPage,
-    ShowPostPage
+    ShowPostPage,
+    ShowEventPage
   ],
   providers: [
     StatusBar,
