@@ -1,0 +1,52 @@
+page-show-post {
+  .post-header {
+    display: flex;
+    align-items: center;
+  }
+
+  ion-badge {
+    font-size: 1.1rem;
+    min-width: 8rem;
+  }
+
+  ion-card {
+    border-bottom: none;
+  }
+
+  .author-date-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .badge-container {
+    display: flex;
+    flex: 1;
+  }
+
+  .avatar-container {
+    max-width: 45px;
+    padding: 0;
+  }
+
+  .post-title {
+    display: block;
+    line-height: 0.3;
+    font-size: 1.8rem;
+    color: #222;
+    margin-bottom: 2px;
+  }
+  .post-subtitle {
+    display: block;
+    font-size: 1.2rem;
+    color: #828282;
+    margin-bottom: 2px;
+  }
+
+  .post-content {
+    display: block;
+    text-align: justify;
+    font-size: 1.4rem;
+    color: #222;
+    margin-bottom: 2px;
+  }
+}

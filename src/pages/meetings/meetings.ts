@@ -1,43 +1,41 @@
-import { Component, onInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ShowMeetingPage } from '../show-meeting/show-meeting';
 
 @Component({
   selector: 'page-meetings',
   templateUrl: 'meetings.html'
 })
-export class MeetingsPage implements onInit {
-		items: any [];
-		itemsFound: any[];
-  constructor(public navCtrl: NavController) {
-  	
-  }
+export class MeetingsPage {
+  meetings: any[];
+  meetingsFound: any[];
+  constructor(public navCtrl: NavController) {}
 
   ngOnInit() {
-  	this.initItemsArray();
+    this.initMeetingsArray();
   }
 
+  initMeetingsArray() {
+    this.meetings = [
+      { name: 'Discipulado UFAL' },
+      { name: 'Reunião Unit' },
+      { name: 'Reunião UFAL' },
+      { name: 'Reunião IFAL' }
+    ];
 
-  initItemsArray() {
-  	this.items =  [
-  		{ name: 'Discipulado UFAL' },
-  		{ name: 'Reunião Unit' },
-  		{ name: 'Reunião UFAL' },
-  		{ name: 'Reunião IFAL' }
-  	];
-
-  	this.itemsFound = this.items;
+    this.meetingsFound = this.meetings;
   }
 
-  getItems(event: any) {
-  	
+  getMeetings(event: any) {
     const value = event.target.value;
 
     const expression = new RegExp(value, 'i');
-    this.itemsFound = this.items.filter(item => expression.test(item.name));
+    this.meetingsFound = this.meetings.filter(item =>
+      expression.test(item.name)
+    );
   }
 
-  showMeeting(name: string) {
-  	console.log(name);
+  showMeeting(meeting: any) {
+    this.navCtrl.push(ShowMeetingPage, { ...meeting });
   }
-
 }

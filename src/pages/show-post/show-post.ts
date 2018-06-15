@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the ShowMeetingPage page.
+ * Generated class for the ShowPostPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,17 +10,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-show-meeting',
-  templateUrl: 'show-meeting.html'
+  selector: 'page-show-post',
+  templateUrl: 'show-post.html'
 })
-export class ShowMeetingPage {
-  meeting: any;
-
+export class ShowPostPage {
+  post: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ngOnInit() {
-    const { data } = this.navParams;
-    this.meeting = data;
-    console.log(this.meeting);
+    this.post = this.navParams.data;
   }
 }

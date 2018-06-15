@@ -1,3 +1,26 @@
 page-posts {
+  .post-header {
+    display: flex;
+    align-items: center;
+  }
 
+  ion-badge {
+    font-size: 1.1rem;
+    min-width: 8rem;
+  }
+
+  .author-date-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .badge-container {
+    display: flex;
+    flex: 1;
+  }
+
+  .avatar-container {
+    max-width: 45px;
+    padding: 0;
+  }
 }

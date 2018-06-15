@@ -4,8 +4,35 @@
       Publicações
     </ion-title>
   </ion-navbar>
+  <ion-searchbar (ionInput)="getPosts($event)" placeholder="Buscar publicação"></ion-searchbar>
+
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-card *ngFor="let post of postsFound" (click)="showPost(post)">
+    <ion-card-header>
+      <div class="post-header">
+        <ion-item class="avatar-container">
+          <ion-avatar item-start>
+            <img src="http://via.placeholder.com/33x33" width="33" />
+          </ion-avatar>
+        </ion-item>
+        <div class="author-date-container">
+          <strong>Michelle Bryant</strong>
+          <p>22 de abril de 2018</p>
+        </div>
+        <ion-item class="badge-container">
+          <ion-badge item-end>Evangelismo</ion-badge>
+        </ion-item>
+      </div>
+    </ion-card-header>
+    <img src="http://via.placeholder.com/350x160" />
+    <ion-card-content>
+      <ion-card-title>
+        {{ post.title }}
+      </ion-card-title>
+      <p>Sexta-feira - 18:30</p>
+      <p>Instituto Federal de Alagoas - IFAL</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
