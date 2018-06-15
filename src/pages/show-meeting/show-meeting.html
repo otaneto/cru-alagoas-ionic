@@ -7,12 +7,30 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ShowMeeting</ion-title>
+    <ion-title>{{ meeting.name }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-card>
+    <img src="http://via.placeholder.com/350x160" />
+    <ion-card-content>
+      <ion-card-title>
+        {{ meeting.name }}
+      </ion-card-title>
+      <p>Sexta-feira - 18:30</p>
+      <p>Responsáveis: Magdiel</p>
+      <br>
+      <p>Reunião para discipular novos participantes da CRU a fim de firmá-los na fé através do ensino da palavra de Deus</p>
+    </ion-card-content>
+    <img src="http://via.placeholder.com/360x180" height="180" />
+    <ion-card-content>
+      <ion-card-title>
+        Instituto Federal de Alagoas
+      </ion-card-title>
+      <p>Praça ao lado da quadra poli-esportiva</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

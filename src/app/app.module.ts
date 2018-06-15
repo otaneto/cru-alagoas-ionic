@@ -11,6 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ShowMeetingPage } from '../pages/show-meeting/show-meeting';
+import { ShowPostPage } from '../pages/show-post/show-post';
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -30,11 +31,9 @@ import { AuthenticationService } from '../services/authentication.service';
     LoginPage,
     SignUpPage,
     ShowMeetingPage,
+    ShowPostPage
   ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp)
-  ],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -46,12 +45,13 @@ import { AuthenticationService } from '../services/authentication.service';
     LoginPage,
     SignUpPage,
     ShowMeetingPage,
-  ],  
+    ShowPostPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthenticationService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthenticationService
   ]
 })
 export class AppModule {}
