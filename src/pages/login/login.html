@@ -24,6 +24,7 @@
       <ion-input type="password" minLength="6" formControlName="password"></ion-input>
     </ion-item>
     <button ion-button full type="submit" [disabled]="!loginForm.valid">Entrar</button>
+    <button ion-button full type="button" (click)="loginGooglePlus()" color="danger">Entrar com Google</button>
   </form>
   <a class="primary" (click)="goToSignUpPage()">Não possuo cadastro!</a>
 </ion-content>

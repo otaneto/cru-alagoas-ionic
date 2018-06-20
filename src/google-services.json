@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "393446787429",
+    "firebase_url": "https://app-cru-alagoas.firebaseio.com",
+    "project_id": "app-cru-alagoas",
+    "storage_bucket": "app-cru-alagoas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393446787429:android:ce568674fd44691c",
+        "android_client_info": {
+          "package_name": "io.cru.alagoas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393446787429-fnkdgrnlicgfekr5tpf2qk5iqjmteah4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.cru.alagoas",
+            "certificate_hash": "f5c50e1aaa3c25c7f5d49d683badf8e9a6d4f955"
+          }
+        },
+        {
+          "client_id": "393446787429-47se6q4qn6mh6oapfi2fn8cq9e2c4spu.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "393446787429-47se6q4qn6mh6oapfi2fn8cq9e2c4spu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLhnYeuVr3ISe2VAZb2kCVOesKWReaQbw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393446787429-47se6q4qn6mh6oapfi2fn8cq9e2c4spu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

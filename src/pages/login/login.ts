@@ -65,6 +65,23 @@ export class LoginPage {
     }
   }
 
+  loginGooglePlus() {
+    const loading = this.loadingCtrl.create({
+      content: 'Entrando...'
+    });
+
+    this._authService
+      .loginWithGoogle()
+      .then(data => {
+        loading.dismiss();
+        this.navCtrl.setRoot(TabsPage);
+      })
+      .catch(err => {
+        loading.dismiss();
+        this.onLoginError(err);
+      });
+  }
+
   onLoginError(err: any) {
     const wrongPassword = 'auth/wrong-password';
     const userNotFound = 'auth/user-not-found';

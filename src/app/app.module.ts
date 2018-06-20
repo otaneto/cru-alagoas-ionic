@@ -20,6 +20,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Services
 import { AuthenticationService } from '../services/authentication.service';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AuthenticationService } from '../services/authentication.service';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthenticationService
+    AuthenticationService,
+    GooglePlus
   ]
 })
 export class AppModule {}
