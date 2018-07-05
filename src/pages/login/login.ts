@@ -22,9 +22,9 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController,
+    private _authService: AuthenticationService,
     public navParams: NavParams,
     private fb: FormBuilder,
-    private _authService: AuthenticationService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
   ) {}

@@ -6,13 +6,8 @@ import { LoginPage } from './login';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @NgModule({
-  declarations: [
-    LoginPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(LoginPage),
-    ReactiveFormsModule
-  ],
+  declarations: [LoginPage],
+  imports: [IonicPageModule.forChild(LoginPage), ReactiveFormsModule],
   providers: [AuthenticationService]
 })
 export class LoginPageModule {}

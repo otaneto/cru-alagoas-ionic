@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // Pages
 import { EventsPage } from '../pages/events/events';
@@ -17,6 +19,7 @@ import { ShowEventPage } from '../pages/show-event/show-event';
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FIREBASE_CONFIG } from '../constants/firebase_config';
 
 // Services
 import { AuthenticationService } from '../services/authentication.service';
@@ -36,7 +39,12 @@ import { GooglePlus } from '@ionic-native/google-plus';
     ShowPostPage,
     ShowEventPage
   ],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp)],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireAuthModule
+  ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,

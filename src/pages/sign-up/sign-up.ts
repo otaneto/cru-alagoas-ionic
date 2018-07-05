@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -17,7 +17,7 @@ import { AuthenticationService } from '../../services/authentication.service';
   selector: 'page-sign-up',
   templateUrl: 'sign-up.html'
 })
-export class SignUpPage {
+export class SignUpPage implements OnInit{
   signUpForm: FormGroup;
 
   constructor(
@@ -29,7 +29,7 @@ export class SignUpPage {
     private loadingCtrl: LoadingController
   ) {}
 
-  ionViewDidLoad() {
+  ngOnInit() {
     this.initForms();
   }
 
