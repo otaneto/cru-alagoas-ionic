@@ -7,26 +7,30 @@ import {
   AlertController
 } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { omit } from 'lodash';
 
 import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from '../login/login';
 import { AuthenticationService } from '../../services/authentication.service';
+import { UserService } from '../../services/user.service';
 
 @IonicPage()
 @Component({
   selector: 'page-sign-up',
   templateUrl: 'sign-up.html'
 })
-export class SignUpPage implements OnInit{
+export class SignUpPage implements OnInit {
   signUpForm: FormGroup;
+  birthday: string;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private fb: FormBuilder,
     private _authService: AuthenticationService,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private fb: FormBuilder,
+    private loadingCtrl: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -35,6 +39,8 @@ export class SignUpPage implements OnInit{
 
   initForms() {
     this.signUpForm = this.fb.group({
+      birthday: [''],
+      name: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       confirm_password: [
         '',
@@ -67,8 +73,7 @@ export class SignUpPage implements OnInit{
       this._authService
         .signUp(email, password)
         .then(data => {
-          loading.dismiss();
-          this.navCtrl.setRoot(TabsPage);
+          this.createUser(data.user.uid, loading);
         })
         .catch(err => {
           loading.dismiss();
@@ -80,6 +85,17 @@ export class SignUpPage implements OnInit{
           alert.present();
         });
     }
+  }
+
+  createUser(id, loading) {
+    const user = {
+      id,
+      ...omit(this.signUpForm.value, ['password', 'confirm_password'])
+    };
+
+    this.userService.createUser(user);
+    loading.dismiss();
+    this.navCtrl.setRoot(TabsPage);
   }
 
   goToLoginPage() {

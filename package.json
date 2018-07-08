@@ -10,7 +10,7 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "dev": "ionic cordova run browser --port 8081"
+    "dev": "ionic serve --lab"
   },
   "dependencies": {
     "@angular/animations": "5.2.10",
@@ -42,6 +42,7 @@
     "hoek": "^4.2.1",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
+    "lodash": "^4.17.10",
     "rxjs": "5.5.10",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"

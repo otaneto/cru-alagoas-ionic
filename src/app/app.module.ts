@@ -24,6 +24,7 @@ import { FIREBASE_CONFIG } from '../constants/firebase_config';
 // Services
 import { AuthenticationService } from '../services/authentication.service';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { UserService } from '../services/user.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthenticationService,
-    GooglePlus
+    GooglePlus,
+    UserService
   ]
 })
 export class AppModule {}
