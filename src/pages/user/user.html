@@ -1,12 +1,22 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Usuário</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+  <form [formGroup]="userForm">
+    <ion-item>
+      <ion-input type="text" formControlName="name" placeholder="Nome" (ionBlur)="updateUser('name')"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD-MM-YYYY" [(ngModel)]="user.birthday" formControlName="birthday"
+        placeholder="Data de Nascimento" (ionChange)="updateDate($event)"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-input type="email" formControlName="email" placeholder="Email" (ionBlur)="updateUser('email')"></ion-input>
+    </ion-item>
+  </form>
   <button block ion-button color="danger" outline (click)="logout()">Sair</button>
 </ion-content>

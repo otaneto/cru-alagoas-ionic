@@ -4,12 +4,31 @@ import { Injectable } from '@angular/core';
 export class UserService {
   constructor() {}
 
+  getAuthenticatedUser() {
+    return firebase.auth().currentUser;
+  }
+
+  getUserInfo(id) {
+    return firebase
+      .database()
+      .ref('users')
+      .child(id)
+      .once('value');
+  }
+
   createUser(data) {
     const user = { ...data, roles: ['user'] };
 
     return firebase
       .database()
-      .ref('users')
-      .push(user);
+      .ref(`users/${data.id}`)
+      .update(user);
+  }
+
+  updateUser(data) {
+    return firebase
+      .database()
+      .ref(`users/${data.id}`)
+      .update(data);
   }
 }
