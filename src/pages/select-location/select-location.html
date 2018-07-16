@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Selecionar Local</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-input type="text" placeholder="Buscar local..." (keypress)="searchPlace($event)" (blur)="searchPlace($event)"></ion-input>
+  </ion-item>
+  <div id="map"></div>
+  <ion-item class="places" *ngFor="let place of placesFound">
+    <ion-label>{{ place.display_name }}</ion-label>
+    <ion-radio [value]="place" (ionSelect)="selectPlace($event)"></ion-radio>
+  </ion-item>
+</ion-content>

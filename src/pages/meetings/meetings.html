@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Reuniões</ion-title>
+    <ion-buttons end>
+      <button ion-button color="primary" *ngIf="isAdmin" (click)="goToNewMeetingPage()">Nova</button>
+    </ion-buttons>
   </ion-navbar>
   <ion-searchbar (ionInput)="getMeetings($event)" placeholder="Buscar reunião"></ion-searchbar>
 </ion-header>

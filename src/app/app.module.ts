@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SelectSearchableModule } from 'ionic-select-searchable';
 
 // Pages
 import { EventsPage } from '../pages/events/events';
@@ -15,6 +16,8 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ShowMeetingPage } from '../pages/show-meeting/show-meeting';
 import { ShowPostPage } from '../pages/show-post/show-post';
 import { ShowEventPage } from '../pages/show-event/show-event';
+import { NewMeetingPage } from '../pages/new-meeting/new-meeting';
+import { SelectLocationPage } from '../pages/select-location/select-location';
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -38,13 +41,16 @@ import { UserService } from '../services/user.service';
     SignUpPage,
     ShowMeetingPage,
     ShowPostPage,
-    ShowEventPage
+    ShowEventPage,
+    NewMeetingPage,
+    SelectLocationPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    SelectSearchableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,7 +64,9 @@ import { UserService } from '../services/user.service';
     SignUpPage,
     ShowMeetingPage,
     ShowPostPage,
-    ShowEventPage
+    ShowEventPage,
+    NewMeetingPage,
+    SelectLocationPage
   ],
   providers: [
     StatusBar,
