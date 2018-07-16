@@ -1,11 +1,14 @@
 page-select-location {
   #map {
-    top: 20px;
+    top: 0px;
     height: 250px;
     width: 100%;
+    margin-bottom: 30px;
   }
 
   .places {
     margin-top: 30px;
   }
+
+  $searchbar-ios-background-color: rgba(0, 0, 0, 0);
 }
