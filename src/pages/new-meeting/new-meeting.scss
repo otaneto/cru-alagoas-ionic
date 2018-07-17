@@ -3,9 +3,13 @@ page-new-meeting {
   justify-content: center;
 
   #map {
-    top: 0px;
+    top: 1rem;
     height: 250px;
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+  }
+
+  .place-name {
+    text-align: justify;
   }
 }

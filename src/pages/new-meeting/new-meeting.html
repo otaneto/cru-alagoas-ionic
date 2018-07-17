@@ -41,8 +41,16 @@
       <ion-input type="text" formControlName="description" placeholder="Breve descrição"></ion-input>
     </ion-item>
     <div id="map"></div>
+    <div *ngIf="place">
+      <p class="place-name">
+        <strong>{{ truncate(place.display_name) }}</strong>
+      </p>
+    </div>
+    <ion-item *ngIf="place">
+      <ion-input type="text" formControlName="place_description" placeholder="Ponto de referência"></ion-input>
+    </ion-item>
     <ion-row justify-content-center>
-      <button type="button" ion-button (click)="onOpenMap()">Selecionar Local</button>
+      <button type="button" ion-button (click)="onOpenMap()">{{ !place ? 'Selecionar' : 'Alterar' }} Local</button>
     </ion-row>
   </form>
 </ion-content>

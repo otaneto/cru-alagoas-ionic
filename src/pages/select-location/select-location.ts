@@ -14,7 +14,7 @@ export class SelectLocationPage {
   center: leaflet.PointTuple;
   marker: any;
   place: any;
-  @ViewChild('map-select') mapContainer: ElementRef;
+  @ViewChild('select-map') mapContainer: ElementRef;
 
   constructor(public viewCtrl: ViewController) {}
 
@@ -24,7 +24,7 @@ export class SelectLocationPage {
   }
 
   loadMap() {
-    this.myMap = leaflet.map('selecet-map').setView(this.center, 13);
+    this.myMap = leaflet.map('select-map').setView(this.center, 13);
 
     leaflet
       .tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -64,7 +64,7 @@ export class SelectLocationPage {
   }
 
   confirmPlace() {
-    this.viewCtrl.dismiss({ location: this.place });
+    this.viewCtrl.dismiss({ place: this.place });
     this.myMap.remove();
   }
 

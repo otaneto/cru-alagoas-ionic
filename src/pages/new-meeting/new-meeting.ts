@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -7,6 +7,7 @@ import {
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import leaflet from 'leaflet';
+import { truncate } from 'lodash';
 
 import { SelectLocationPage } from '../select-location/select-location';
 
@@ -22,6 +23,8 @@ export class NewMeetingPage implements OnInit {
   myMap: any;
   center: leaflet.PointTuple;
   marker: any;
+  place: any;
+  @ViewChild('map') mapContainer: ElementRef;
 
   constructor(
     private modalCtrl: ModalController,
@@ -45,6 +48,7 @@ export class NewMeetingPage implements OnInit {
       description: ['', Validators.required],
       type: ['', Validators.required],
       leaders: ['', Validators.required],
+      place_description: ['', Validators.required],
       picture: ['', Validators.required]
     });
   }
@@ -70,16 +74,21 @@ export class NewMeetingPage implements OnInit {
     modal.onDidDismiss(data => {
       if (data) {
         this.meetingForm.patchValue({
-          location: data.location
+          location: data.place
         });
-        this.center = data.location;
-        this.loadMap();
+        this.center = [data.place.lat, data.place.lon];
+        this.place = data.place;
       }
+      this.loadMap();
     });
   }
 
+  truncate(string) {
+    return truncate(string, { length: 80, omission: '...' });
+  }
+
   loadMap() {
-    this.myMap = leaflet.map('map').setView(this.center, 13);
+    this.myMap = leaflet.map('map').setView(this.center, 15);
 
     leaflet
       .tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
