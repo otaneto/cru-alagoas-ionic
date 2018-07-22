@@ -12,4 +12,11 @@ page-new-meeting {
   .place-name {
     text-align: justify;
   }
+
+  img {
+    height: 250px;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
 }

@@ -86,6 +86,38 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="393446787429-47se6q4qn6mh6oapfi2fn8cq9e2c4spu.apps.googleusercontent.com" />
     </plugin>
     <allow-navigation href="http://192.168.1.101:8100" />
-    <engine name="ios" spec="~4.5.4" />
     <allow-navigation href="http://192.168.1.101:8101" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
+    <allow-navigation href="http://192.168.1.102:8001" />
+    <allow-navigation href="http://192.168.1.102:8002" />
+    <allow-navigation href="http://192.168.1.102:8003" />
+    <allow-navigation href="http://192.168.1.102:8004" />
+    <allow-navigation href="http://192.168.1.102:8005" />
+    <allow-navigation href="http://192.168.1.102:8006" />
+    <allow-navigation href="http://192.168.1.102:8007" />
+    <allow-navigation href="http://192.168.1.102:8008" />
+    <allow-navigation href="http://192.168.1.102:8009" />
+    <allow-navigation href="http://192.168.1.102:8010" />
+    <allow-navigation href="http://192.168.1.102:8011" />
+    <allow-navigation href="http://192.168.1.102:8012" />
+    <allow-navigation href="http://192.168.1.102:8013" />
+    <allow-navigation href="http://192.168.1.102:8014" />
+    <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="7.0.0" />
+    <allow-navigation href="http://192.168.1.102:8015" />
+    <allow-navigation href="http://192.168.1.102:8016" />
+    <allow-navigation href="http://192.168.1.102:8017" />
+    <allow-navigation href="http://192.168.1.102:8018" />
+    <allow-navigation href="http://192.168.1.102:8019" />
+    <allow-navigation href="http://192.168.1.162:8000" />
+    <allow-navigation href="http://192.168.1.162:8001" />
+    <allow-navigation href="http://192.168.0.105:8000" />
+    <allow-navigation href="http://192.168.0.105:8001" />
+    <allow-navigation href="http://192.168.0.105:8002" />
+    <allow-navigation href="http://192.168.0.105:8003" />
+    <allow-navigation href="http://192.168.0.105:8004" />
+    <allow-navigation href="http://192.168.0.105:8005" />
+    <allow-navigation href="http://192.168.0.105:8006" />
+    <allow-navigation href="http://192.168.0.105:8007" />
 </widget>

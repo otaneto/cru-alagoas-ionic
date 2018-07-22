@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Injectable } from '@angular/core';
+import { omit } from 'lodash';
 @Injectable()
 export class UserService {
   constructor() {}
@@ -26,9 +27,12 @@ export class UserService {
   }
 
   updateUser(data) {
+    const updates = {};
+    updates[data.id] = omit(data, ['id']);
+    console.log(updates);
     return firebase
       .database()
-      .ref(`users/${data.id}`)
-      .update(data);
+      .ref('users')
+      .update(updates);
   }
 }

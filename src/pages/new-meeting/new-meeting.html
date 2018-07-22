@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>Nova Reunião</ion-title>
     <ion-buttons end>
-      <button ion-button color="primary" clear>Salvar</button>
+      <button ion-button color="primary" type="button" clear (click)="submitMeeting()" [disabled]="meetingForm.invalid">Salvar</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -12,8 +12,9 @@
 
 <ion-content padding>
   <form [formGroup]="meetingForm">
+    <img *ngIf="photo" [src]="photo" (click)="getImage()">
     <ion-row justify-content-center>
-      <button ion-button type="button">Selecionar Imagem</button>
+      <button ion-button type="button" (click)="getImage()">Selecionar Imagem</button>
     </ion-row>
     <ion-item>
       <ion-input type="text" formControlName="name" placeholder="Título da reunião"></ion-input>
@@ -24,21 +25,24 @@
     <ion-item>
       <ion-label>Dias</ion-label>
       <ion-select formControlName="days" multiple="true" (ionChange)="selectDays($event)">
-        <ion-option value="sunday">Domingo</ion-option>
-        <ion-option value="monday">Segunda-feira</ion-option>
-        <ion-option value="tuesday">Terça-feira</ion-option>
-        <ion-option value="wednesday">Quarta-feira</ion-option>
-        <ion-option value="thursday">Quinta-feira</ion-option>
-        <ion-option value="friday">Sexta-feira</ion-option>
-        <ion-option value="saturday">Sábado</ion-option>
+        <ion-option value="Domingo">Domingo</ion-option>
+        <ion-option value="Segunda-feira">Segunda-feira</ion-option>
+        <ion-option value="Terça-feira">Terça-feira</ion-option>
+        <ion-option value="Quarta-feira">Quarta-feira</ion-option>
+        <ion-option value="Quinta-feira">Quinta-feira</ion-option>
+        <ion-option value="Sexta-feira">Sexta-feira</ion-option>
+        <ion-option value="Sábado">Sábado</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Horário</ion-label>
-      <ion-datetime displayFormat="HH:mm" [(ngModel)]="time" formControlName="time" (ionChange)="selectTime($event)"></ion-datetime>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="time" displayFormat="HH:mm" formControlName="time" (ionChange)="selectTime($event)"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-input type="text" formControlName="description" placeholder="Breve descrição"></ion-input>
+      <ion-input type="text" formControlName="leaders" placeholder="Responsáveis pela reunião"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="type" placeholder="Tipo de Reunião (ex: Quebra Gelo, Discipulado)"></ion-input>
     </ion-item>
     <div id="map"></div>
     <div *ngIf="place">

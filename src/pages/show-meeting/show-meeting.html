@@ -20,17 +20,17 @@
       <ion-card-title>
         {{ meeting.name }}
       </ion-card-title>
-      <p>Sexta-feira - 18:30</p>
-      <p>Responsáveis: Magdiel</p>
+      <p>{{ concatDays(meeting.days) }} - {{ meeting.time }}</p>
+      <p>Responsáveis: {{ meeting.leaders }}</p>
       <br>
-      <p>Reunião para discipular novos participantes da CRU a fim de firmá-los na fé através do ensino da palavra de Deus</p>
+      <p>{{ meeting.description }}</p>
     </ion-card-content>
-    <img src="http://via.placeholder.com/360x180" height="180" />
+    <div id="map"></div>
     <ion-card-content>
       <ion-card-title>
-        Instituto Federal de Alagoas
+        {{ truncate(meeting.location.display_name) }}
       </ion-card-title>
-      <p>Praça ao lado da quadra poli-esportiva</p>
+      <p>{{ meeting.place_description }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

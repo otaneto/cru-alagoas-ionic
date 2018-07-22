@@ -6,7 +6,7 @@
     </ion-buttons>
     <ion-title>Selecionar Local</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="confirmPlace()">Confirmar</button>
+      <button ion-button [disabled]="!place" (click)="confirmPlace()">Confirmar</button>
     </ion-buttons>
   </ion-navbar>
   <ion-searchbar (ionInput)="searchPlace($event)" placeholder="Buscar local..."></ion-searchbar>
@@ -27,5 +27,8 @@
       <ion-radio [value]="place" (ionSelect)="selectPlace($event)"></ion-radio>
     </ion-item>
   </ion-list>
+  <div *ngIf="placesFound && placesFound.length === 0">
+    <h6>Nenhum resultado encontrado...</h6>
+  </div>
 
 </ion-content>

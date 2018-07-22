@@ -1,15 +1,20 @@
+import { MeetingsService } from './../meetings/meetings.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
-  ModalController
+  ModalController,
+  AlertController,
+  LoadingController
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import leaflet from 'leaflet';
 import { truncate } from 'lodash';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { SelectLocationPage } from '../select-location/select-location';
+import { MeetingsPage } from '../meetings/meetings';
 
 @IonicPage()
 @Component({
@@ -24,19 +29,49 @@ export class NewMeetingPage implements OnInit {
   center: leaflet.PointTuple;
   marker: any;
   place: any;
+  photo: any = 'https://hlfppt.org/wp-content/uploads/2017/04/placeholder.png';
   @ViewChild('map') mapContainer: ElementRef;
 
   constructor(
+    public alertCtrl: AlertController,
+    private camera: Camera,
+    private fb: FormBuilder,
+    public loadCtrl: LoadingController,
+    private meetingsService: MeetingsService,
     private modalCtrl: ModalController,
     public navCtrl: NavController,
-    public navParams: NavParams,
-    private fb: FormBuilder
+    public navParams: NavParams
   ) {}
 
   ngOnInit() {
     this.initMeetingForm();
     this.center = ['-9.6475', '-35.7337'];
     this.loadMap();
+  }
+
+  getImage() {
+    const options: CameraOptions = {
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      quality: 100,
+      correctOrientation: true,
+      saveToPhotoAlbum: false
+    };
+
+    this.camera.getPicture(options).then(
+      imageData => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        this.photo = 'data:image/jpeg;base64,' + imageData;
+        this.meetingForm.patchValue({
+          picture: this.photo
+        });
+      },
+      err => {
+        // Handle error
+      }
+    );
   }
 
   initMeetingForm() {
@@ -49,7 +84,7 @@ export class NewMeetingPage implements OnInit {
       type: ['', Validators.required],
       leaders: ['', Validators.required],
       place_description: ['', Validators.required],
-      picture: ['', Validators.required]
+      picture: ['']
     });
   }
 
@@ -59,10 +94,10 @@ export class NewMeetingPage implements OnInit {
     });
   }
 
-  selectTime(time) {
+  selectTime({ hour, minute }) {
     if (this.meetingForm) {
       this.meetingForm.patchValue({
-        time
+        time: `${hour}:${minute}`
       });
     }
   }
@@ -97,8 +132,6 @@ export class NewMeetingPage implements OnInit {
       .addTo(this.myMap);
 
     this.markPlace();
-
-    // marker.bindPopup('<p> Leaflet Mapa Funcionando. </p>');
   }
 
   markPlace() {
@@ -109,7 +142,73 @@ export class NewMeetingPage implements OnInit {
     this.myMap.addLayer(this.marker);
   }
 
-  ionViewWillLeave() {
-    this.myMap.remove();
+  submitMeeting() {
+    this.load().present();
+    if (this.meetingForm.valid) {
+      const body = { ...this.meetingForm.value };
+      this.meetingsService.createMeeting(body).then(data => {
+        this.myMap.remove();
+        if (this.meetingForm.get('picture').valid) {
+          this.uploadImage(data.key);
+        } else {
+          this.load().dismiss();
+          const alert = this.alertCtrl.create({
+            title: 'Erro ao criar a reunião',
+            message: 'Tente novamente mais tarde',
+            buttons: ['Ok']
+          });
+          alert.present();
+          this.navCtrl.setRoot(MeetingsPage);
+        }
+      });
+    }
+  }
+
+  uploadImage(id) {
+    const picture = this.meetingForm.get('picture').value;
+    this.meetingsService
+      .uploadMeetingImage({ id, picture })
+      .then(data => {
+        // const picture_url = data.metadata.downloadURLs[0];
+        console.log(data);
+        // this.updateMeeting(id, picture_url);
+      })
+      .catch(err => {
+        this.load().dismiss();
+        const alert = this.alertCtrl.create({
+          title: 'Erro ao carregar imagem',
+          message:
+            err.message ||
+            'A reunião foi criada, porém a imagem de capa não foi carregada',
+          buttons: ['Ok']
+        });
+        alert.present();
+      });
+  }
+
+  updateMeeting(id, picture) {
+    const body = { id, ...this.meetingForm.value, picture };
+    this.meetingsService
+      .updateMeeting(body)
+      .then(data => {
+        this.load().dismiss();
+        this.navCtrl.setRoot(MeetingsPage);
+        this.myMap.remove();
+      })
+      .catch(err => {
+        this.load().dismiss();
+        const alert = this.alertCtrl.create({
+          title: 'Erro ao atualizar Reunião',
+          message: err.message || 'Tente novamente mais tarde',
+          buttons: ['Ok']
+        });
+        alert.present();
+      });
+  }
+
+  load() {
+    return this.loadCtrl.create({
+      content: 'Carregando...'
+    });
   }
 }

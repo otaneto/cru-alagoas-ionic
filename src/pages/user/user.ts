@@ -17,6 +17,8 @@ import { UserService } from '../../services/user.service';
 })
 export class UserPage {
   userForm: FormGroup;
+  user: any = {};
+
   constructor(
     private alertCtrl: AlertController,
     private _authService: AuthenticationService,
@@ -26,8 +28,6 @@ export class UserPage {
     public navParams: NavParams,
     private userService: UserService
   ) {}
-
-  user: any = {};
 
   ngOnInit() {
     this.initForms();
@@ -41,10 +41,11 @@ export class UserPage {
 
     loading.present();
     const user = this.userService.getAuthenticatedUser();
+    this.user = { id: user.uid };
     this.userService
       .getUserInfo(user.uid)
       .then(data => {
-        this.user = data.val();
+        this.user = { ...this.user, ...data.val() };
         loading.dismiss();
         this.initFormsWithValue();
       })
@@ -68,13 +69,10 @@ export class UserPage {
   }
 
   initFormsWithValue() {
-    this.userForm = this.fb.group({
-      birthday: [this.user.birthday],
-      name: [this.user.name, Validators.required],
-      email: [
-        this.user.email,
-        Validators.compose([Validators.required, Validators.email])
-      ]
+    this.userForm.patchValue({
+      birthday: this.user.birthday,
+      name: this.user.name,
+      email: this.user.email
     });
   }
 
@@ -84,11 +82,13 @@ export class UserPage {
 
   updateUser(field) {
     const body = {
-      id: this.user.id,
+      ...this.user,
       ...this.userForm.value
     };
     const previousValue = this.user[field];
     const currentValue = this.userForm.get(field).value;
+
+    console.log(body);
 
     if (this.userForm.get(field).valid && previousValue !== currentValue) {
       this.userService
@@ -127,11 +127,6 @@ export class UserPage {
   }
 
   updateDate(birthday) {
-    if (this.userForm) {
-      this.userForm.patchValue({
-        birthday
-      });
-      this.updateUser('birthday');
-    }
+    this.updateUser('birthday');
   }
 }

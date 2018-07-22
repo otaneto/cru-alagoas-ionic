@@ -1,3 +1,4 @@
+import { omit } from 'lodash';
 import firebase from 'firebase';
 import { Injectable } from '@angular/core';
 @Injectable()
@@ -20,18 +21,26 @@ export class MeetingsService {
   }
 
   createMeeting(data) {
-    const user = { ...data, roles: ['user'] };
-
+    const body = omit(data, ['picture']);
     return firebase
       .database()
-      .ref(`meetings/${data.id}`)
-      .update(user);
+      .ref(`meetings`)
+      .push(body);
   }
 
   updateMeeting(data) {
+    const body = {};
+    body[data.id] = data;
     return firebase
       .database()
-      .ref(`meetings/${data.id}`)
-      .update(data);
+      .ref('meetings')
+      .update(body);
+  }
+
+  uploadMeetingImage(data) {
+    return firebase
+      .storage()
+      .ref(`meetings/${data.id}.jpeg`)
+      .putString(data.picture, 'data_url', { contentType: 'image/jpeg' });
   }
 }

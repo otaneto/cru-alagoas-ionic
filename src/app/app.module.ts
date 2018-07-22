@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SelectSearchableModule } from 'ionic-select-searchable';
+import { HttpClientModule } from '@angular/common/http';
 
 // Pages
 import { EventsPage } from '../pages/events/events';
@@ -25,9 +26,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CONFIG } from '../constants/firebase_config';
 
 // Services
-import { AuthenticationService } from '../services/authentication.service';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { Camera } from '@ionic-native/camera';
+import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
+import { MeetingsService } from './../pages/meetings/meetings.service';
+import { LocationService } from '../pages/select-location/location.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,8 @@ import { UserService } from '../services/user.service';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
-    SelectSearchableModule
+    SelectSearchableModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -73,8 +78,11 @@ import { UserService } from '../services/user.service';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthenticationService,
+    UserService,
+    MeetingsService,
+    LocationService,
     GooglePlus,
-    UserService
+    Camera
   ]
 })
 export class AppModule {}

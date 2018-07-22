@@ -1,7 +1,13 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
-import { NominatimJS } from 'nominatim-js';
+import {
+  IonicPage,
+  ViewController,
+  AlertController,
+  LoadingController
+} from 'ionic-angular';
 import leaflet from 'leaflet';
+
+import { LocationService } from './location.service';
 
 @IonicPage()
 @Component({
@@ -9,14 +15,19 @@ import leaflet from 'leaflet';
   templateUrl: 'select-location.html'
 })
 export class SelectLocationPage {
-  placesFound: any[];
+  placesFound: any;
   myMap: any;
   center: leaflet.PointTuple;
   marker: any;
   place: any;
   @ViewChild('select-map') mapContainer: ElementRef;
 
-  constructor(public viewCtrl: ViewController) {}
+  constructor(
+    public alertCtrl: AlertController,
+    public loadCtrl: LoadingController,
+    public viewCtrl: ViewController,
+    private locationService: LocationService
+  ) {}
 
   ionViewDidEnter() {
     this.center = ['-9.6475', '-35.7337'];
@@ -46,13 +57,27 @@ export class SelectLocationPage {
   }
 
   searchPlace(event) {
-    NominatimJS.search({
-      q: event.target.value
-    })
-      .then(data => {
+    const loading = this.loadCtrl.create({
+      content: 'Buscando...'
+    });
+    loading.present();
+
+    const query = event.target.value;
+    this.locationService.getLocation(query).subscribe(
+      data => {
+        loading.dismiss();
         this.placesFound = data;
-      })
-      .catch(error => console.log(error));
+      },
+      err => {
+        loading.dismiss();
+        const alert = this.alertCtrl.create({
+          title: 'Erro ao cadastrar',
+          message: err.message,
+          buttons: ['Ok']
+        });
+        alert.present();
+      }
+    );
   }
 
   selectPlace(place) {

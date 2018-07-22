@@ -5,7 +5,7 @@
       <button ion-button color="primary" *ngIf="isAdmin" (click)="goToNewMeetingPage()">Nova</button>
     </ion-buttons>
   </ion-navbar>
-  <ion-searchbar (ionInput)="getMeetings($event)" placeholder="Buscar reunião"></ion-searchbar>
+  <ion-searchbar (ionInput)="serachMeetings($event)" placeholder="Buscar reunião"></ion-searchbar>
 </ion-header>
 
 <ion-content>
@@ -15,8 +15,8 @@
       <ion-card-title>
         {{ meeting.name }}
       </ion-card-title>
-      <p>Sexta-feira - 18:30</p>
-      <p>Instituto Federal de Alagoas - IFAL</p>
+      <p>{{ concatDays(meeting.days) }} - {{ meeting.time }}</p>
+      <p>{{ truncate(meeting.location.display_name) }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
