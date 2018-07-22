@@ -13,7 +13,9 @@
     <img src="http://via.placeholder.com/350x160" />
     <ion-card-content>
       <ion-card-title>
-        {{ meeting.name }}
+        <ion-row justify-content-between>
+          {{ meeting.name }}
+        </ion-row>
       </ion-card-title>
       <p>{{ concatDays(meeting.days) }} - {{ meeting.time }}</p>
       <p>{{ truncate(meeting.location.display_name) }}</p>

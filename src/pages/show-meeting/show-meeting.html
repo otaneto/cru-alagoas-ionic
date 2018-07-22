@@ -15,10 +15,14 @@
 
 <ion-content>
   <ion-card>
-    <img src="http://via.placeholder.com/350x160" />
+    <img *ngIf="meeting.picture" [attr.src]="meeting.picture" />
+    <img *ngIf="!!meeting.picture === false" src="http://via.placeholder.com/350x160" />
     <ion-card-content>
       <ion-card-title>
-        {{ meeting.name }}
+        <ion-row justify-content-between>
+          {{ meeting.name }}
+          <ion-icon ios="ios-trash-outline" md="md-trash" color="danger" (click)="deleteMeeting()"></ion-icon>
+        </ion-row>
       </ion-card-title>
       <p>{{ concatDays(meeting.days) }} - {{ meeting.time }}</p>
       <p>Responsáveis: {{ meeting.leaders }}</p>

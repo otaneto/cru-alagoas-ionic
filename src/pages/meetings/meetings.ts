@@ -4,7 +4,7 @@ import {
   LoadingController,
   AlertController
 } from 'ionic-angular';
-import { indexOf, values, truncate } from 'lodash';
+import { indexOf, values, truncate, orderBy } from 'lodash';
 
 import { ShowMeetingPage } from '../show-meeting/show-meeting';
 import { UserService } from '../../services/user.service';
@@ -47,7 +47,6 @@ export class MeetingsPage implements OnInit {
         loading.dismiss();
         this.user = data.val();
         this.isAdmin = indexOf(this.user.roles, 'admin') !== -1;
-        loading.dismiss();
       })
       .catch(err => {
         loading.dismiss();
@@ -65,6 +64,7 @@ export class MeetingsPage implements OnInit {
       .getMeetings()
       .then(data => {
         this.meetings = values(data.val());
+        this.meetings = orderBy(this.meetings, ['name']);
         this.meetingsFound = this.meetings;
         console.log(this.meetings);
       })
@@ -89,6 +89,7 @@ export class MeetingsPage implements OnInit {
     this.meetingsFound = this.meetings.filter(item =>
       expression.test(item.name)
     );
+    this.meetingsFound = orderBy(this.meetingsFound, ['name']);
   }
 
   concatDays(days) {

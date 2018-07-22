@@ -43,4 +43,12 @@ export class MeetingsService {
       .ref(`meetings/${data.id}.jpeg`)
       .putString(data.picture, 'data_url', { contentType: 'image/jpeg' });
   }
+
+  deleteMeeting(data) {
+    return firebase
+      .database()
+      .ref('meetings')
+      .child(data.id)
+      .remove();
+  }
 }

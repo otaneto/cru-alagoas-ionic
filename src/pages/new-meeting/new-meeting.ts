@@ -147,6 +147,7 @@ export class NewMeetingPage implements OnInit {
     if (this.meetingForm.valid) {
       const body = { ...this.meetingForm.value };
       this.meetingsService.createMeeting(body).then(data => {
+        this.updateMeeting(data.key);
         this.myMap.remove();
         if (this.meetingForm.get('picture').valid) {
           this.uploadImage(data.key);
@@ -186,8 +187,8 @@ export class NewMeetingPage implements OnInit {
       });
   }
 
-  updateMeeting(id, picture) {
-    const body = { id, ...this.meetingForm.value, picture };
+  updateMeeting(id) {
+    const body = { id, ...this.meetingForm.value };
     this.meetingsService
       .updateMeeting(body)
       .then(data => {
