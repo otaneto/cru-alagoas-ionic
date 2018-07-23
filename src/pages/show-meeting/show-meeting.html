@@ -21,7 +21,10 @@
       <ion-card-title>
         <ion-row justify-content-between>
           {{ meeting.name }}
-          <ion-icon ios="ios-trash-outline" md="md-trash" color="danger" (click)="deleteMeeting()"></ion-icon>
+          <div class="actions">
+            <ion-icon name="ios-create-outline" (click)="editMeeting(meeting)"></ion-icon>
+            <ion-icon ios="ios-trash-outline" md="md-trash" color="danger" (click)="deleteMeeting()"></ion-icon>
+          </div>
         </ion-row>
       </ion-card-title>
       <p>{{ concatDays(meeting.days) }} - {{ meeting.time }}</p>

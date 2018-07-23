@@ -1,3 +1,4 @@
+import { EditMeetingPage } from './../edit-meeting/edit-meeting';
 import { Component } from '@angular/core';
 import {
   IonicPage,
@@ -73,6 +74,11 @@ export class ShowMeetingPage {
     this.myMap.addLayer(this.marker);
   }
 
+  editMeeting(meeting) {
+    this.myMap.remove();
+    this.navCtrl.push(EditMeetingPage, { meeting });
+  }
+
   deleteMeeting() {
     const alert = this.alertCtrl.create({
       title: 'Tem certeza que deseja remover a reunião?',
@@ -118,9 +124,5 @@ export class ShowMeetingPage {
       buttons: ['Ok']
     });
     alert.present();
-  }
-
-  ionViewWillLeave() {
-    this.myMap.remove();
   }
 }

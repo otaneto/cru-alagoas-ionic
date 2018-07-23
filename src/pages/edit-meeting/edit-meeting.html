@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Editar Reunião</ion-title>
+    <ion-buttons end>
+      <button ion-button color="primary" type="button" clear (click)="submitMeeting()" [disabled]="meetingForm.invalid">Salvar</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="meetingForm">
+    <img *ngIf="photo" [src]="photo" (click)="getImage()">
+    <ion-row justify-content-center>
+      <button ion-button type="button" (click)="getImage()">Selecionar Imagem</button>
+    </ion-row>
+    <ion-item>
+      <ion-input type="text" formControlName="name" placeholder="Título da reunião"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="description" placeholder="Breve descrição"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dias</ion-label>
+      <ion-select formControlName="days" multiple="true" (ionChange)="selectDays($event)">
+        <ion-option value="Domingo">Domingo</ion-option>
+        <ion-option value="Segunda-feira">Segunda-feira</ion-option>
+        <ion-option value="Terça-feira">Terça-feira</ion-option>
+        <ion-option value="Quarta-feira">Quarta-feira</ion-option>
+        <ion-option value="Quinta-feira">Quinta-feira</ion-option>
+        <ion-option value="Sexta-feira">Sexta-feira</ion-option>
+        <ion-option value="Sábado">Sábado</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Horário</ion-label>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="time" displayFormat="HH:mm" formControlName="time" (ionChange)="selectTime($event)"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="leaders" placeholder="Responsáveis pela reunião"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="type" placeholder="Tipo de Reunião (ex: Quebra Gelo, Discipulado)"></ion-input>
+    </ion-item>
+    <div id="edit-map"></div>
+    <div *ngIf="meetingForm.get('location').valid">
+      <p class="place-name">
+        <strong>{{ truncate(meetingForm.get('location').value.display_name) }}</strong>
+      </p>
+    </div>
+    <ion-item *ngIf="meetingForm.get('location').valid">
+      <ion-input type="text" formControlName="place_description" placeholder="Ponto de referência"></ion-input>
+    </ion-item>
+    <ion-row justify-content-center>
+      <button type="button" ion-button (click)="onOpenMap()">{{ meetingForm.get('location').invalid ? 'Selecionar' : 'Alterar' }} Local</button>
+    </ion-row>
+  </form>
+</ion-content>

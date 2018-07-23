@@ -35,21 +35,13 @@ export class MeetingsPage implements OnInit {
 
   getUser() {
     const authenticatedUser = this.userService.getAuthenticatedUser();
-    const loading = this.loadingCtrl.create({
-      content: 'Carregando...'
-    });
-
-    loading.present();
-
     this.userService
       .getUserInfo(authenticatedUser.uid)
       .then(data => {
-        loading.dismiss();
         this.user = data.val();
         this.isAdmin = indexOf(this.user.roles, 'admin') !== -1;
       })
       .catch(err => {
-        loading.dismiss();
         const alert = this.alertCtrl.create({
           title: 'Erro ao buscar usuários',
           message: err.message || 'Tente novamente mais tarde',
@@ -60,15 +52,20 @@ export class MeetingsPage implements OnInit {
   }
 
   getMeetings() {
+    const loading = this.loadingCtrl.create({
+      content: 'Carregando...'
+    });
+    loading.present();
     this.meetingsService
       .getMeetings()
       .then(data => {
+        loading.dismissAll();
         this.meetings = values(data.val());
         this.meetings = orderBy(this.meetings, ['name']);
         this.meetingsFound = this.meetings;
-        console.log(this.meetings);
       })
       .catch(err => {
+        loading.dismissAll();
         const alert = this.alertCtrl.create({
           title: 'Erro ao buscar reuniões',
           message: err.message || 'Tente novamente mais tarde',

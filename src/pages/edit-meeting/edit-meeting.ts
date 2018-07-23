@@ -1,27 +1,28 @@
-import { MeetingsService } from './../meetings/meetings.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ShowMeetingPage } from './../show-meeting/show-meeting';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
-  ModalController,
   AlertController,
-  LoadingController
+  LoadingController,
+  ModalController
 } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import leaflet from 'leaflet';
-import { truncate } from 'lodash';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { truncate } from 'lodash';
+import leaflet from 'leaflet';
 
+import { MeetingsService } from '../meetings/meetings.service';
 import { SelectLocationPage } from '../select-location/select-location';
-import { MeetingsPage } from '../meetings/meetings';
 
 @IonicPage()
 @Component({
-  selector: 'page-new-meeting',
-  templateUrl: 'new-meeting.html'
+  selector: 'page-edit-meeting',
+  templateUrl: 'edit-meeting.html'
 })
-export class NewMeetingPage implements OnInit {
+export class EditMeetingPage implements OnInit {
+  meeting: any;
   meetingForm: FormGroup;
   days: any[] = [];
   time: any;
@@ -30,7 +31,7 @@ export class NewMeetingPage implements OnInit {
   marker: any;
   place: any;
   photo: any = 'https://hlfppt.org/wp-content/uploads/2017/04/placeholder.png';
-  @ViewChild('map') mapContainer: ElementRef;
+  @ViewChild('edit-map') mapContainer: ElementRef;
 
   constructor(
     public alertCtrl: AlertController,
@@ -44,8 +45,9 @@ export class NewMeetingPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.meeting = this.navParams.data.meeting;
+    this.center = [this.meeting.location.lat, this.meeting.location.lon];
     this.initMeetingForm();
-    this.center = ['-9.6475', '-35.7337'];
     this.loadMap();
   }
 
@@ -76,15 +78,16 @@ export class NewMeetingPage implements OnInit {
 
   initMeetingForm() {
     this.meetingForm = this.fb.group({
-      name: ['', Validators.required],
-      location: ['', Validators.required],
-      days: [[''], Validators.required],
-      time: ['', Validators.required],
-      description: ['', Validators.required],
-      type: ['', Validators.required],
-      leaders: ['', Validators.required],
-      place_description: ['', Validators.required],
-      picture: ['']
+      id: [this.meeting.id, Validators.required],
+      name: [this.meeting.name, Validators.required],
+      location: [this.meeting.location, Validators.required],
+      days: [this.meeting.days, Validators.required],
+      time: [this.meeting.time, Validators.required],
+      description: [this.meeting.description, Validators.required],
+      type: [this.meeting.type, Validators.required],
+      leaders: [this.meeting.leaders, Validators.required],
+      place_description: [this.meeting.place_description, Validators.required],
+      picture: [this.meeting.picture || '']
     });
   }
 
@@ -123,7 +126,7 @@ export class NewMeetingPage implements OnInit {
   }
 
   loadMap() {
-    this.myMap = leaflet.map('map').setView(this.center, 15);
+    this.myMap = leaflet.map('edit-map').setView(this.center, 15);
 
     leaflet
       .tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -145,14 +148,10 @@ export class NewMeetingPage implements OnInit {
   submitMeeting() {
     this.load().present();
     if (this.meetingForm.valid) {
-      const body = { ...this.meetingForm.value };
-      this.meetingsService.createMeeting(body).then(data => {
-        this.load().dismiss();
-        this.updateMeeting(data.key);
-        if (this.meetingForm.get('picture').value.length > 0) {
-          this.uploadImage(data.key);
-        }
-      });
+      this.updateMeeting(this.meeting.id);
+      if (this.meetingForm.get('picture').value.length > 0) {
+        this.uploadImage(this.meeting.id);
+      }
     }
   }
 
@@ -170,7 +169,7 @@ export class NewMeetingPage implements OnInit {
           title: 'Erro ao carregar imagem',
           message:
             err.message ||
-            'A reunião foi criada, porém a imagem de capa não foi carregada',
+            'A reunião foi editada, porém a imagem de capa não foi carregada',
           buttons: ['Ok']
         });
         alert.present();
@@ -178,26 +177,35 @@ export class NewMeetingPage implements OnInit {
   }
 
   updateMeeting(id) {
-    const body = { id, ...this.meetingForm.value };
-    this.meetingsService
-      .updateMeeting(body)
-      .then(data => {
-        this.myMap.remove();
-        this.navCtrl.setRoot(MeetingsPage);
-      })
-      .catch(err => {
-        const alert = this.alertCtrl.create({
-          title: 'Erro ao atualizar Reunião',
-          message: err.message || 'Tente novamente mais tarde',
-          buttons: ['Ok']
+    if (this.meetingForm.valid) {
+      const body = { ...this.meetingForm.value };
+      this.meetingsService
+        .updateMeeting(body)
+        .then(data => {
+          console.log(data);
+          this.myMap.remove();
+          this.navCtrl.setRoot(ShowMeetingPage, {
+            meeting: body
+          });
+        })
+        .catch(err => {
+          const alert = this.alertCtrl.create({
+            title: 'Erro ao atualizar Reunião',
+            message: err.message || 'Tente novamente mais tarde',
+            buttons: ['Ok']
+          });
+          alert.present();
         });
-        alert.present();
-      });
+    }
   }
 
   load() {
     return this.loadCtrl.create({
       content: 'Carregando...'
     });
+  }
+
+  ionViewWillLeave() {
+    this.myMap.remove();
   }
 }

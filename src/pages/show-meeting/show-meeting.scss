@@ -3,4 +3,10 @@ page-show-meeting {
     height: 180px;
     width: 100%;
   }
+
+  .actions {
+    width: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
 }

@@ -1,0 +1,22 @@
+page-edit-meeting {
+  display: flex;
+  justify-content: center;
+
+  #edit-map {
+    top: 1rem;
+    height: 250px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .place-name {
+    text-align: justify;
+  }
+
+  img {
+    height: 250px;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+}

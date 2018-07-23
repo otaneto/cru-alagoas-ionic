@@ -41,7 +41,9 @@ export class MeetingsService {
     return firebase
       .storage()
       .ref(`meetings/${data.id}.jpeg`)
-      .putString(data.picture, 'data_url', { contentType: 'image/jpeg' });
+      .putString(data.picture.substring(23), 'data_url', {
+        contentType: 'image/jpg'
+      });
   }
 
   deleteMeeting(data) {

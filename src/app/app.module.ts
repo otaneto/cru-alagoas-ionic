@@ -19,6 +19,7 @@ import { ShowPostPage } from '../pages/show-post/show-post';
 import { ShowEventPage } from '../pages/show-event/show-event';
 import { NewMeetingPage } from '../pages/new-meeting/new-meeting';
 import { SelectLocationPage } from '../pages/select-location/select-location';
+import { EditMeetingPage } from './../pages/edit-meeting/edit-meeting';
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -47,7 +48,8 @@ import { LocationService } from '../pages/select-location/location.service';
     ShowPostPage,
     ShowEventPage,
     NewMeetingPage,
-    SelectLocationPage
+    SelectLocationPage,
+    EditMeetingPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ import { LocationService } from '../pages/select-location/location.service';
     ShowPostPage,
     ShowEventPage,
     NewMeetingPage,
-    SelectLocationPage
+    SelectLocationPage,
+    EditMeetingPage
   ],
   providers: [
     StatusBar,
