@@ -12,7 +12,7 @@
     "ionic:serve": "ionic-app-scripts serve",
     "dev": "ionic serve --lab",
     "browser": "ionic cordova run browser -l -p=8000",
-    "start": "npm run build npm run browser"
+    "start": "npm run build && node server.js"
   },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.3",
