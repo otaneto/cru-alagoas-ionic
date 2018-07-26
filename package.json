@@ -12,7 +12,7 @@
     "ionic:serve": "ionic-app-scripts serve",
     "dev": "ionic serve --lab",
     "browser": "ionic cordova run browser -l -p=8000",
-    "start": "build dev"
+    "start": "npm run build npm run browser"
   },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.3",
@@ -60,12 +60,11 @@
     "nominatim-js": "^1.0.0",
     "rxjs": "5.5.10",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
-  },
-  "devDependencies": {
+    "zone.js": "0.8.26",
     "@ionic/app-scripts": "3.1.9",
     "typescript": "~2.6.2"
   },
+  "devDependencies": {},
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
